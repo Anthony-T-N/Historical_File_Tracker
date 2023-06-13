@@ -11,10 +11,13 @@ def read_files():
 
 def write_to_text(list):
   output_file = open("p[].txt", "w")
+  for item in list:
+    print(item)
+    output_file.write(item + "\n")
+  output_file.close()
 
 def main():
   print("Running")
-  print(read_files())
   write_to_text(read_files())
 
 if __name__ == '__main__':

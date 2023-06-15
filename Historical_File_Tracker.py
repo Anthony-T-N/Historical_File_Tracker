@@ -4,32 +4,45 @@ __date__ = '2023-06-12'
 
 import os
 
-# Recursively read all files in directory and store as list.
-def read_files():
-  dir_list = os.listdir("./")
-  return dir_list
-
-def write_to_text(list):
+def write_to_text(directory_list):
   input_file = open("p[]-old.txt", "r")
   input_file_lines = input_file.readlines()
   output_file = open("p[].txt", "w")
 
-  count = 0
-  for current_line in input_file_lines:
-    count += 1
-    print("Line{}: {}".format(count, current_line.strip()))
+  range_num = 0
+  print(str(len(input_file_lines)) + "+" + str(len(directory_list)))
+  if (len(input_file_lines) >= len(directory_list)):
+    range_num = len(input_file_lines)
+  else:
+    range_num = len(directory_list)
 
-  for item in list:
-    print(item)
-    output_file.write(item + "\n")
+  print(range_num)
+
+  i = 0
+  for i in range(range_num):
+    print(input_file_lines[i].strip())
+    print(directory_list[i].strip())
+    if (input_file_lines[i].strip() != directory_list[i].strip()):
+      print("UNMATCH")
+    else:
+      output_file.write(directory_list[i] + "\n")
+    i += 1
+
+  print("!@")
+
   input_file.close()
   output_file.close()
   os.remove("p[]-old.txt")
   os.rename('p[].txt', 'p[]-old.txt')
 
+# Recursively read all files in directory and store as list.
+def read_directory():
+  dir_list = os.listdir("./")
+  return dir_list
+
 def main():
   print("Running")
-  write_to_text(read_files())
+  write_to_text(read_directory())
 
 if __name__ == '__main__':
   main()

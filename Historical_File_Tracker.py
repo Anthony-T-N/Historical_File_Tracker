@@ -8,9 +8,21 @@ def write_to_text(directory_list):
   input_file = open("p[]-old.txt", "r")
   input_file_lines = input_file.readlines()
   output_file = open("p[].txt", "w")
+  deleted_list_file = open("deleted_files", "w")
 
   range_num = 0
   print(str(len(input_file_lines)) + "+" + str(len(directory_list)))
+
+  # Usually new file.
+  if (len(input_file_lines) == 0):
+    for i in range(len(directory_list)):
+      output_file.write(directory_list[i] + "\n")
+    input_file.close()
+    output_file.close()
+    os.remove("p[]-old.txt")
+    os.rename('p[].txt', 'p[]-old.txt')
+    return
+
   if (len(input_file_lines) >= len(directory_list)):
     range_num = len(input_file_lines)
   else:
@@ -20,10 +32,10 @@ def write_to_text(directory_list):
 
   i = 0
   for i in range(range_num):
-    print(input_file_lines[i].strip())
-    print(directory_list[i].strip())
+    print(input_file_lines[i].strip() + " | " + directory_list[i].strip())
     if (input_file_lines[i].strip() != directory_list[i].strip()):
       print("UNMATCH")
+      deleted_list_file.write(input_file_lines[i].strip() + "\n")
     else:
       output_file.write(directory_list[i] + "\n")
     i += 1

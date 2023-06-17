@@ -4,10 +4,10 @@ __date__ = '2023-06-12'
 
 import os
 
-def write_to_text(directory_list):
-  input_file = open("p[]-old.txt", "r")
+def write_to_text(directory_list, historical_file, temp_file):
+  input_file = open(historical_file, "r")
   input_file_lines = input_file.readlines()
-  output_file = open("p[].txt", "w")
+  output_file = open(temp_file, "w")
   deleted_list_file = open("deleted_files", "w")
 
   range_num = 0
@@ -19,8 +19,8 @@ def write_to_text(directory_list):
       output_file.write(directory_list[i] + "\n")
     input_file.close()
     output_file.close()
-    os.remove("p[]-old.txt")
-    os.rename('p[].txt', 'p[]-old.txt')
+    os.remove(historical_file)
+    os.rename(temp_file, historical_file)
     return
 
   if (len(input_file_lines) >= len(directory_list)):
@@ -30,31 +30,36 @@ def write_to_text(directory_list):
 
   print(range_num)
 
-  i = 0
+  input_line_count = 0
+  directory_list_count = 0
   for i in range(range_num):
-    print(input_file_lines[i].strip() + " | " + directory_list[i].strip())
-    if (input_file_lines[i].strip() != directory_list[i].strip()):
+    print(input_file_lines[input_line_count].strip() + " | " + directory_list[directory_list_count].strip())
+    if (input_file_lines[input_line_count].strip() != directory_list[directory_list_count].strip()):
       print("UNMATCH")
-      deleted_list_file.write(input_file_lines[i].strip() + "\n")
+      deleted_list_file.write(input_file_lines[input_line_count].strip() + "\n")
+      directory_list_count += 1
     else:
-      output_file.write(directory_list[i] + "\n")
-    i += 1
+      output_file.write(directory_list[directory_list_count] + "\n")
+      input_line_count += 1
+      directory_list_count += 1
 
   print("!@")
 
   input_file.close()
   output_file.close()
-  os.remove("p[]-old.txt")
-  os.rename('p[].txt', 'p[]-old.txt')
+  os.remove(historical_file)
+  os.rename(temp_file, historical_file)
 
 # Recursively read all files in directory and store as list.
 def read_directory():
-  dir_list = os.listdir("./")
+  dir_list = os.listdir(".\\Sample_Directory")
   return dir_list
 
 def main():
   print("Running")
-  write_to_text(read_directory())
+  historical_file = ".\\p[]-old.txt"
+  temp_file = ".\\p[].txt"
+  write_to_text(read_directory(), historical_file, temp_file)
 
 if __name__ == '__main__':
   main()

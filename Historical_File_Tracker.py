@@ -59,13 +59,13 @@ def write_to_text(directory_list, historical_file, temp_write_file):
 
 # Recursively read all files in directory and store as list.
 def read_directory():
-  dir_list = os.listdir(".\\Sample_Directory\\")
+  dir_list = os.listdir("Historical_File_Tracker\Sample_Directory\\")
   return dir_list
 
 def main():
   print("Running")
-  historical_file = ".\\p[]-old.txt"
-  temp_write_file = ".\\p[].txt"
+  historical_file = "Historical_File_Tracker\p[]-old.txt"
+  temp_write_file = "Historical_File_Tracker\p[].txt"
   write_to_text(read_directory(), historical_file, temp_write_file)
 
 if __name__ == '__main__':

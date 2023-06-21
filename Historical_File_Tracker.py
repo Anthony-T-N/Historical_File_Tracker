@@ -32,16 +32,18 @@ def write_to_text(directory_list, historical_file, temp_write_file, deleted_file
 
   historical_file_count = 0
   directory_list_count = 0
+  # Method 1
   for i in range(range_num):
     
     if (historical_file_count >= range_num or directory_list_count >= range_num):
       break
 
-    print("DEBUG SECTION: historical_file_count: " + str(historical_file_count) + " directory_list_count: " + str(directory_list_count) + "\n")
-
+    print("\n" + "DEBUG SECTION: historical_file_count: " + str(historical_file_count) + " directory_list_count: " + str(directory_list_count) + "\n")
     print(historical_file_lines[historical_file_count].strip() + " | " + directory_list[directory_list_count].strip())
+
     if (historical_file_lines[historical_file_count].strip() != directory_list[directory_list_count].strip()):
       print("UNMATCH")
+      print(historical_file_lines[historical_file_count].strip() + " Deleted")
       deleted_list_file.write(historical_file_lines[historical_file_count].strip() + "\n")
       temp_write_file_o.write(directory_list[directory_list_count].strip() + "\n")
       directory_list_count += 1
@@ -50,7 +52,14 @@ def write_to_text(directory_list, historical_file, temp_write_file, deleted_file
       historical_file_count += 1
       directory_list_count += 1
 
-  print("!@")
+  historical_file_count = 0
+  directory_list_count = 0
+  # Method 2
+  for i in range(range_num):
+    print("\n" + "DEBUG SECTION: historical_file_count: " + str(historical_file_count) + " directory_list_count: " + str(directory_list_count) + "\n")
+    print(historical_file_lines[historical_file_count].strip() + " | " + directory_list[directory_list_count].strip())
+
+    for j in range(range_num):
 
   historical_file_o.close()
   temp_write_file_o.close()

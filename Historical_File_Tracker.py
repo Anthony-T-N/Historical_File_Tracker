@@ -62,13 +62,14 @@ def write_to_text(directory_list, historical_file, temp_write_file, deleted_file
     print(historical_file_lines[historical_file_count].strip() + " | " + directory_list[directory_list_count].strip())
 
     for j in range(range_num):
-      print(str(j) + " " + str(range_num))
+      print(str(j) + " " + str(len(directory_list)))
+      if (j == len(directory_list)):
+        print("Missing")
+        break
       print(historical_file_lines[i].strip() + " | " + directory_list[j].strip())
       if (historical_file_lines[i].strip() == directory_list[j].strip()):
         print("Remove")
         break
-      if (j == range_num):
-        print("Missing")
 
   historical_file_o.close()
   temp_write_file_o.close()
